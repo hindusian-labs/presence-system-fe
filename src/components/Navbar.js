@@ -1,7 +1,12 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import React from "react";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
   return (
     <div>
       <nav
@@ -32,7 +37,9 @@ const Navbar = () => {
           <div className="navbar-end">
             <div className="navbar-item">
               <div className="buttons">
-                <button className="button is-light">Log out</button>
+                <button className="button is-light" onClick={handleLogout}>
+                  Log out
+                </button>
               </div>
             </div>
           </div>

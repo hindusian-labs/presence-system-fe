@@ -1,37 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LoginUser, reset } from "../features/authSlice";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, isError, isSuccess, isLoading, message } = useSelector(
-    (state) => state.auth
-  );
-
-  useEffect(() => {
-    if (user || isSuccess) {
-      navigate("/dashboard");
-    }
-    dispatch(reset());
-  }, [user, isSuccess, dispatch, navigate]);
 
   const Auth = (e) => {
     e.preventDefault();
-    dispatch(LoginUser({ username, password }));
+    LoginUser({ username, password });
   };
-
+  const LoginUser = (e) => {
+    if (e.username === "admin" && e.password === "password") {
+      navigate("/dashboard");
+      localStorage.setItem("auth", JSON.stringify({ isAuth: true }));
+    }
+  };
   return (
     <section className="hero is-fullheight is-fullwidth">
       <div className="hero-body">
         <div className="container">
           <div className="columns is-centered">
             <div className="column is-4">
-              <form onSubmit={Auth} className="box">
-                {isError && <p className="has-text-centered">{message}</p>}
+              <form className="box" onSubmit={Auth}>
                 <h1 className="title is-2">Sign In</h1>
                 <div className="field">
                   <label className="label">Username</label>
@@ -62,7 +53,8 @@ const Login = () => {
                     type="submit"
                     className="button is-success is-fullwidth"
                   >
-                    {isLoading ? "Loading..." : "Login"}
+                    {/* {isLoading ? "Loading..." : "Login"} */}
+                    Login
                   </button>
                 </div>
               </form>

@@ -1,13 +1,13 @@
-import React from 'react'
-import Welcome from '../components/Welcome'
-import Layout from './Layout'
+import React from "react";
+import Welcome from "../components/Welcome";
+import Layout from "./Layout";
 
 const Dashboard = () => {
   return (
     <Layout>
-       <Welcome/>
+      <Welcome />
     </Layout>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
