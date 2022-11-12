@@ -11,9 +11,11 @@ const Login = () => {
     LoginUser({ username, password });
   };
   const LoginUser = (e) => {
-    if (e.username === "admin" && e.password === "password") {
+    if (e.username === "admin" && e.password === "admin") {
       navigate("/dashboard");
-      localStorage.setItem("auth", JSON.stringify({ isAuth: true }));
+      // localStorage.setItem("auth", JSON.stringify({ isAuth: true }));
+      localStorage.setItem("auth", true);
+      window.location.reload();
     }
   };
   return (
