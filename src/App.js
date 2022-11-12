@@ -1,10 +1,9 @@
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Login from "./components/Login";
 import Users from "./pages/Users";
 import Log from "./pages/Log";
 function App() {
-  // const navigate = useNavigate();
   const isAuth = localStorage.getItem("auth") || false;
   console.log(isAuth);
   return (
