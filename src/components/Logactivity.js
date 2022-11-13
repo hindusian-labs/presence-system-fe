@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
 const LogActivity = () => {
-  const [logActivity, setUsers] = useState([]);
-  const apiKey = process.env.REACT_APP_API_KEY;
+  const apiKey = process.env.REACT_APP_API_KEY || "";
+  const [logActivity, setLogActivity] = useState([]);
   useEffect(() => {
     getLogActivity();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const getLogActivity = async () => {
-    await axios
-      .get("http://34.101.216.127:8000/check", {
-        headers: { "x-api-key": apiKey },
-      })
-      .then((response) => {
-        setUsers(response.data["data"]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const response = await axios.get("http://34.101.216.127:8000/check", {
+      headers: { "x-api-key": apiKey },
+    });
+    setLogActivity(response.data["data"]);
   };
   setInterval(getLogActivity, 10000);
   return (
@@ -36,7 +30,7 @@ const LogActivity = () => {
         </thead>
         <tbody>
           {logActivity.map((logActivity, index) => (
-            <tr key={logActivity.userId}>
+            <tr key={index}>
               <td>{index + 1}</td>
               <td>{logActivity.userId}</td>
               <td>{logActivity.in}</td>

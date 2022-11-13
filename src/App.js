@@ -19,6 +19,10 @@ function App() {
             element={isAuth === false ? <Login /> : <Users />}
           />
           <Route path="/log" element={isAuth === false ? <Login /> : <Log />} />
+          {/* <Route
+            path="/users/edit/:id"
+            element={isAuth === false ? <Login /> : <EditUser />}
+          /> */}
         </Routes>
       </BrowserRouter>
     </div>
