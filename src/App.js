@@ -3,6 +3,8 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./components/Login";
 import Users from "./pages/Users";
 import Log from "./pages/Log";
+import EditUser from "./pages/EditUser";
+import AddUser from "./pages/AddUser";
 function App() {
   const isAuth = localStorage.getItem("auth") || false;
   return (
@@ -19,10 +21,14 @@ function App() {
             element={isAuth === false ? <Login /> : <Users />}
           />
           <Route path="/log" element={isAuth === false ? <Login /> : <Log />} />
-          {/* <Route
+          <Route
             path="/users/edit/:id"
             element={isAuth === false ? <Login /> : <EditUser />}
-          /> */}
+          />
+          <Route
+            path="/adduser"
+            element={isAuth === false ? <Login /> : <AddUser />}
+          />
         </Routes>
       </BrowserRouter>
     </div>

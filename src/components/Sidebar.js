@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import React from "react";
-import { IoHome, IoPerson, IoCalendar } from "react-icons/io5";
+import { IoHome, IoPerson, IoCalendar, IoPersonAdd } from "react-icons/io5";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -27,6 +27,11 @@ const Sidebar = () => {
           <li>
             <NavLink to={"/log"}>
               <IoCalendar /> Log Aktivitas
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/adduser"}>
+              <IoPersonAdd /> Tambah User
             </NavLink>
           </li>
         </ul>

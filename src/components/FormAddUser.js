@@ -1,36 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const FormEditUser = () => {
-  const apiKey = process.env.REACT_APP_API_KEY;
-  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || "";
-
+const FormAddUser = () => {
   const [name, setName] = useState("");
+  const [id, setId] = useState("");
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
-  const { id } = useParams();
+  const apiKey = process.env.REACT_APP_API_KEY;
+  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || "";
   axios.defaults.baseURL = apiBaseUrl;
   axios.defaults.headers.common["X-Api-key"] = apiKey;
-  useEffect(() => {
-    const getUserById = async () => {
-      try {
-        const response = await axios.get(`/user/${id}`);
-        setName(response.data["data"]["name"]);
-      } catch (error) {
-        if (error.response) {
-          setMsg(error.response.data.msg);
-        }
-      }
-    };
-    getUserById();
-  }, [id]);
 
-  const updateUser = async (e) => {
+  const saveUser = async (e) => {
     e.preventDefault();
     try {
-      var body = { name: name };
-      await axios.put(`http://34.101.216.127:8000/user/${id}`, body);
+      var body = { id: id, name: name };
+      await axios.post("user", body);
       navigate("/users");
     } catch (error) {
       if (error.response) {
@@ -41,12 +27,24 @@ const FormEditUser = () => {
   return (
     <div>
       <h1 className="title">Users</h1>
-      <h2 className="subtitle">Update User</h2>
+      <h2 className="subtitle">Add New User</h2>
       <div className="card is-shadowless">
         <div className="card-content">
           <div className="content">
-            <form onSubmit={updateUser}>
+            <form onSubmit={saveUser}>
               <p className="has-text-centered">{msg}</p>
+              <div className="field">
+                <label className="label">ID</label>
+                <div className="control">
+                  <input
+                    type="text"
+                    className="input"
+                    value={id}
+                    onChange={(e) => setId(e.target.value)}
+                    placeholder="Email"
+                  />
+                </div>
+              </div>
               <div className="field">
                 <label className="label">Name</label>
                 <div className="control">
@@ -62,7 +60,7 @@ const FormEditUser = () => {
               <div className="field">
                 <div className="control">
                   <button type="submit" className="button is-success">
-                    Update
+                    Save
                   </button>
                 </div>
               </div>
@@ -74,4 +72,4 @@ const FormEditUser = () => {
   );
 };
 
-export default FormEditUser;
+export default FormAddUser;

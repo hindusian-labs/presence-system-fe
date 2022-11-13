@@ -13,7 +13,6 @@ const LogActivity = () => {
     });
     setLogActivity(response.data["data"]);
   };
-  setInterval(getLogActivity, 10000);
   return (
     <div>
       <h1 className="title">Dashboard</h1>

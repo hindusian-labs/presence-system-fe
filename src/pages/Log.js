@@ -5,6 +5,16 @@ import Layout from "./Layout";
 const Log = () => {
   return (
     <Layout>
+      {(() => {
+        if (window.localStorage) {
+          if (!localStorage.getItem("reload")) {
+            localStorage["reload"] = true;
+            window.location.reload();
+          } else {
+            localStorage.removeItem("reload");
+          }
+        }
+      })()}
       <LogActivity />
     </Layout>
   );

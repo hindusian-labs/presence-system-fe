@@ -21,7 +21,6 @@ const Userlist = () => {
     });
     getUsers();
   };
-  setInterval(getUsers, 10000);
   return (
     <div>
       <h1 className="title">Dashboard</h1>
