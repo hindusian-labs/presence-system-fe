@@ -3,14 +3,14 @@ import axios from "axios";
 
 const LogActivity = () => {
   const [logActivity, setUsers] = useState([]);
-
+  const apiKey = process.env.REACT_APP_API_KEY;
   useEffect(() => {
     getLogActivity();
-  }, []);
+  });
   const getLogActivity = async () => {
     await axios
       .get("http://34.101.216.127:8000/check", {
-        headers: { "x-api-key": "12e5eaed-fa5c-4f8e-8060-6dca533a5d83" },
+        headers: { "x-api-key": apiKey },
       })
       .then((response) => {
         setUsers(response.data["data"]);

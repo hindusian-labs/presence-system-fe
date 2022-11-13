@@ -5,7 +5,6 @@ import Users from "./pages/Users";
 import Log from "./pages/Log";
 function App() {
   const isAuth = localStorage.getItem("auth") || false;
-  console.log(isAuth);
   return (
     <div>
       <BrowserRouter>
