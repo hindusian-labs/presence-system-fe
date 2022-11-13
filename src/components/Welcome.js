@@ -21,7 +21,6 @@ const Welcome = () => {
   axios.defaults.baseURL = apiBaseUrl;
   axios.defaults.headers.common["X-Api-key"] = apiKey;
   client.onMessageArrived = (message) => {
-    setMessage(message.payloadString);
     axios
       .get(`/user/${message.payloadString}`)
       .then((res) => {
@@ -30,9 +29,9 @@ const Welcome = () => {
           .post(`/check/${res.data["data"]["id"]}`)
           .then((resp) => {
             if (resp.data["data"]["out"] === null) {
-              window.alert("User Checked In");
+              return setMessage(message.payloadString + " Check In");
             } else {
-              window.alert("User Checked Out");
+              return setMessage(message.payloadString + " Check Out");
             }
           })
           .catch((e) => {
@@ -59,14 +58,7 @@ const Welcome = () => {
   };
   const [message, setMessage] = useState("");
 
-  const text =
-    message === "" ? (
-      <p>Menunggu Presensi.</p>
-    ) : (
-      <p>
-        Topic {topic}: {message}
-      </p>
-    );
+  const text = message === "" ? <p>Menunggu Presensi.</p> : <p>{message}</p>;
   return (
     <section>
       <div className="columns is-centered">

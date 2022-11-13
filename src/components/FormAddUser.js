@@ -41,7 +41,7 @@ const FormAddUser = () => {
                     className="input"
                     value={id}
                     onChange={(e) => setId(e.target.value)}
-                    placeholder="Email"
+                    placeholder="ID"
                   />
                 </div>
               </div>
