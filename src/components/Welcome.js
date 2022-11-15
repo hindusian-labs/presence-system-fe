@@ -2,6 +2,7 @@ import { Client } from "paho-mqtt";
 import axios from "axios";
 import { React, useState } from "react";
 import { nanoid } from "nanoid";
+import { useNavigate } from "react-router-dom";
 
 const Welcome = () => {
   const broker = process.env.REACT_APP_MQTT_BROKER_HOSTNAME || "";
@@ -12,6 +13,7 @@ const Welcome = () => {
 
   const client = new Client(broker, webSocketPort, `client_${nanoid(4)}`);
 
+  const navigate = useNavigate();
   client.connect({
     onSuccess: () => {
       console.log("Connection succeed.");
@@ -20,6 +22,7 @@ const Welcome = () => {
   });
   axios.defaults.baseURL = apiBaseUrl;
   axios.defaults.headers.common["X-Api-key"] = apiKey;
+  axios.defaults.timeout = 10000;
   client.onMessageArrived = (message) => {
     axios
       .get(`/user/${message.payloadString}`)
@@ -39,20 +42,11 @@ const Welcome = () => {
           });
       })
       .catch((e) => {
+        console.log(setMessage);
         console.log("User not found.");
         const register = window.confirm("Register User?");
         if (register) {
-          const name =
-            window.prompt("Enter your name:") || message.payloadString;
-          axios
-            .post("/user", {
-              id: `${message.payloadString}`,
-              name: name,
-            })
-            .then((resp) => {
-              window.alert("User Created");
-            })
-            .catch((e) => window.alert("Cannot Create User"));
+          navigate("/adduser");
         }
       });
   };
