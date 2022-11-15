@@ -39,10 +39,10 @@ const Welcome = () => {
           })
           .catch((e) => {
             window.alert("User Already Checked Out");
+            window.location.reload();
           });
       })
       .catch((e) => {
-        console.log(setMessage);
         console.log("User not found.");
         const register = window.confirm("Register User?");
         if (register) {
