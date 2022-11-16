@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const FormAddUser = () => {
+  const { state } = useLocation();
+  const { uid } = state || "";
   const [name, setName] = useState("");
   const [id, setId] = useState("");
   const [msg, setMsg] = useState("");
@@ -12,6 +14,11 @@ const FormAddUser = () => {
   axios.defaults.baseURL = apiBaseUrl;
   axios.defaults.headers.common["X-Api-key"] = apiKey;
 
+  useEffect(() => {
+    if (uid) {
+      setId(uid);
+    }
+  });
   const saveUser = async (e) => {
     e.preventDefault();
     try {
@@ -24,6 +31,7 @@ const FormAddUser = () => {
       }
     }
   };
+
   return (
     <div>
       <h1 className="title">Users</h1>

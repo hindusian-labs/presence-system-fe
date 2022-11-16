@@ -46,7 +46,12 @@ const Welcome = () => {
         console.log("User not found.");
         const register = window.confirm("Register User?");
         if (register) {
-          navigate("/adduser");
+          const id = message.payloadString;
+          navigate("/adduser", {
+            state: {
+              uid: id,
+            },
+          });
         }
       });
   };
